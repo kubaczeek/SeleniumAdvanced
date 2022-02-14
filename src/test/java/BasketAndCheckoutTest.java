@@ -51,7 +51,6 @@ public class BasketAndCheckoutTest extends BaseTest {
             assertThat(productsInBasketOnPage.get(index)).usingRecursiveComparison()
                     .isEqualTo(basket.getProductByIndex(index));
         }
-        System.out.println("ASDASDASFGEAGHWFWE");
     }
 
     private String countTextProductInBasket(Basket basket) {
@@ -64,15 +63,13 @@ public class BasketAndCheckoutTest extends BaseTest {
     }
 
     private void addProductToBasket(Product product, Basket basket) {
-        boolean isInBasket = false;
         for (Product productFromBasket : basket.getProductsInBasket()) {
             if (productFromBasket.getName().equals(product.getName()) && productFromBasket.getPrice() == product.getPrice()) {
                 productFromBasket.setQuantity(productFromBasket.getQuantity() + product.getQuantity());
-                isInBasket = true;
+                return;
             }
         }
-        if (!isInBasket)
-            basket.addProduct(product);
+        basket.addProduct(product);
     }
 
     private int countItemsInBasket(Basket basket) {

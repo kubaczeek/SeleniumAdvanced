@@ -13,7 +13,8 @@ public class BaseTest {
     UserFactory userFactory = new UserFactory();
     Config config = new Config();
 
-    MainPage mainPage;
+    MainPage mainPage; // czy dzięki temu kod nie jest bardziej przejrzysty?. Jezeli tego nie zrobie pozniej musze tworzyc nowy main page kilka razy MainPage mainPage = new MainPage(driver);
+    // jezeli zostawie tak to tylko mainPage = new MainPage(driver)
     LogInPage loginPage;
     MyAccountPage myAccountPage;
     CreateAccountPage createAccountPage;
@@ -22,8 +23,8 @@ public class BaseTest {
 
     @BeforeClass
     public void setup() throws FileNotFoundException {
-        config.loadConfig();
         DriverFactory driverFactory = new DriverFactory();
+        config.loadConfig();
         driver = driverFactory.getDriver(config.getBrowser());
         driver.get(config.getBASE_URL());
         mainPage = new MainPage(driver);
@@ -32,7 +33,7 @@ public class BaseTest {
 
     @AfterClass
     public void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
 
     public void acceptAlert() {
