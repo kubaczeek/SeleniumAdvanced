@@ -1,3 +1,6 @@
+package UserTest;
+
+import Base.BaseTest;
 import common.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;

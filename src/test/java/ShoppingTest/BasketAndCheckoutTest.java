@@ -1,3 +1,6 @@
+package ShoppingTest;
+
+import Base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
