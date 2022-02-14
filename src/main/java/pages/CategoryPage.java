@@ -22,6 +22,9 @@ public class CategoryPage {
     @FindBy(css = ".total-products p")
     WebElement totalProductsTextOnPage;
 
+    @FindBy(css = ".h1")
+    WebElement categoryHeader;
+
     public String totalProductsOnPageText(){
         return totalProductsTextOnPage.getText();
     }
@@ -32,6 +35,10 @@ public class CategoryPage {
         } else {
             return "There are " + count + " products.";
         }
+    }
+
+    public String getHeaderText(){
+        return categoryHeader.getText();
     }
 
     public List<WebElement> getSubcategories() {
