@@ -31,9 +31,9 @@ public class BaseTest {
     public void setup() throws FileNotFoundException {
         DriverFactory driverFactory = new DriverFactory();
         config.loadConfig();
-//        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver = driverFactory.getDriver(config.getBrowser());
         driver.get(config.getBASE_URL());
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         mainPage = new MainPage(driver);
         driver.manage().window().maximize();
     }
