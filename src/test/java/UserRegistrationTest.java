@@ -7,18 +7,15 @@ import pages.LogInPage;
 import pages.MyAccountPage;
 import pages.PersonalInformationPage;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class UserRegistrationTest extends BaseTest {
 
     @BeforeClass
     public void InitPage() {
-        driver.get(CREATE_ACCOUNT_URL);
-        Assert.assertEquals(CREATE_ACCOUNT_URL, driver.getCurrentUrl());
+        driver.get(config.getCREATE_ACCOUNT_URL());
+        Assert.assertEquals(driver.getCurrentUrl(), config.getCREATE_ACCOUNT_URL());
         createAccountPage = new CreateAccountPage(driver);
     }
 
@@ -26,7 +23,7 @@ public class UserRegistrationTest extends BaseTest {
     public void RegisterUserAndCheckPersonalInfo() {
         User user = userFactory.getRandomUser();
         createAccountPage.registerUser(user);
-        driver.get(PERSONAL_INFORMATION_URL);
+        driver.get(config.getPERSONAL_INFORMATION_URL());
         personalInformationPage = new PersonalInformationPage(driver);
         Assert.assertEquals(personalInformationPage.getFirstName(), user.getFirstName());
         Assert.assertEquals(personalInformationPage.getLastName(), user.getLastName());
@@ -37,11 +34,11 @@ public class UserRegistrationTest extends BaseTest {
         personalInformationPage.logout();
         loginPage = new LogInPage(driver);
         Assert.assertTrue(loginPage.pageLoaded());
-        Assert.assertEquals(driver.getCurrentUrl(), SIGN_OUT_URL);
+        Assert.assertEquals(driver.getCurrentUrl(), config.getSIGN_OUT_URL());
 
         loginPage.loginUser(user);
         myAccountPage = new MyAccountPage(driver);
         Assert.assertTrue(myAccountPage.pageLoaded());
-        Assert.assertEquals(driver.getCurrentUrl(), PERSONAL_INFORMATION_URL);
+        Assert.assertEquals(driver.getCurrentUrl(), config.getPERSONAL_INFORMATION_URL());
     }
 }

@@ -15,20 +15,20 @@ public class BasketAndCheckoutTest extends BaseTest {
 
     @BeforeClass
     public void OpenMainPage() {
-        driver.get(BASE_URL);
+        driver.get(config.getBASE_URL());
         mainPage = new MainPage(driver);
     }
 
     @Test
-    public void BasketAndCheckoutTest() {
+    public void BasketAndCheckoutTests() {
         Product product;
         Basket basket = new Basket();
         int i = 0;
         while (i < 5) {
-            driver.get(BASE_URL);
+            driver.get(config.getBASE_URL());
             mainPage = new MainPage(driver);
             mainPage.openRandomProduct();
-            productDetailsPage = new ProductDetailsPage(driver);
+            ProductDetailsPage productDetailsPage = new ProductDetailsPage(driver);
             productDetailsPage.randomFillProduct();
             product = productDetailsPage.getProductToObject();
             addProductToBasket(product, basket);
@@ -39,18 +39,17 @@ public class BasketAndCheckoutTest extends BaseTest {
             i++;
         }
 
-        driver.get(BASKET_URL);
+        driver.get(config.getBASKET_URL());
 
-        BasketPage basketPage = new BasketPage(driver);
+        basketPage = new BasketPage(driver);
         ArrayList<Product> productsInBasketOnPage = new ArrayList<>();
         for (int j = 0; j < basket.getProductsInBasket().size(); j++) {
             productsInBasketOnPage.add(basketPage.getProductToObjectByIndexFromList(j));
         }
 
-
         for (int index = 0; index < basket.getProductsInBasket().size(); index++) {
-            assertThat(productsInBasketOnPage.get(index))
-                    .isEqualToComparingFieldByField(basket.getProductByIndexFromBasket(index));
+            assertThat(productsInBasketOnPage.get(index)).usingRecursiveComparison()
+                    .isEqualTo(basket.getProductByIndex(index));
         }
         System.out.println("ASDASDASFGEAGHWFWE");
     }

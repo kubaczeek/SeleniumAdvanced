@@ -1,39 +1,31 @@
+import common.Config;
+import common.DriverFactory;
 import common.UserFactory;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import pages.*;
 
-import java.util.Random;
+import java.io.FileNotFoundException;
 
 public class BaseTest {
     WebDriver driver;
     UserFactory userFactory = new UserFactory();
-
-    String BASE_URL = "http://146.59.32.4/index.php"; // TODO Class Configuration properties
-    String LOG_IN_URL = "http://146.59.32.4/index.php?controller=authentication&back=my-account"; // TODO Class Configuration properties
-    String MY_ACCOUNT_URL = "http://146.59.32.4/index.php?controller=my-account"; // TODO Class Configuration properties
-    String CREATE_ACCOUNT_URL = "http://146.59.32.4/index.php?controller=authentication&create_account=1"; // TODO Class Configuration properties
-    String PERSONAL_INFORMATION_URL = "http://146.59.32.4/index.php?controller=identity"; // TODO Class Configuration properties
-    String SIGN_OUT_URL = "http://146.59.32.4/index.php?controller=authentication&back=identity"; // TODO Class Configuration properties
-    String BASKET_URL = "http://146.59.32.4/index.php?controller=cart&action=show"; // TODO Class Configuration properties
+    Config config = new Config();
 
     MainPage mainPage;
     LogInPage loginPage;
     MyAccountPage myAccountPage;
     CreateAccountPage createAccountPage;
     PersonalInformationPage personalInformationPage;
-    ProductDetailsPage productDetailsPage;
-
+    BasketPage basketPage;
 
     @BeforeClass
-    public void setup() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.get(BASE_URL);
+    public void setup() throws FileNotFoundException {
+        config.loadConfig();
+        DriverFactory driverFactory = new DriverFactory();
+        driver = driverFactory.getDriver(config.getBrowser());
+        driver.get(config.getBASE_URL());
         mainPage = new MainPage(driver);
         driver.manage().window().maximize();
     }

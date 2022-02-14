@@ -13,7 +13,7 @@ public class Basket {
         return productsInBasket;
     }
 
-    public Product getProductByIndexFromBasket(int index) {
+    public Product getProductByIndex(int index) {
         return productsInBasket.get(index);
     }
 

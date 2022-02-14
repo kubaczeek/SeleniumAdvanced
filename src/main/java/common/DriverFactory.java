@@ -1,5 +1,6 @@
-package enums;
+package common;
 
+import enums.Browser;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,7 +10,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class DriverFactory {
 
-    private WebDriver getDriver(Browser browser) {
+    public WebDriver getDriver(Browser browser) {
         WebDriver driver = null;
         switch (browser) {
             case CHROME:
