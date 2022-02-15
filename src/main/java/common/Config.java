@@ -17,6 +17,10 @@ public class Config {
     private String SIGN_OUT_URL;
     private String BASKET_URL;
     private Browser browser;
+    private String prefixOneProductInBasket;
+    private String suffixOneProductInBasket;
+    private String prefixProductsInBasket;
+    private String suffixProductsInBasket;
 
     public void loadConfig() throws FileNotFoundException {
         InputStream input = new FileInputStream("src/main/resources/config.properties");
@@ -32,10 +36,48 @@ public class Config {
             this.setSIGN_OUT_URL(prop.getProperty("SIGN_OUT_URL"));
             this.setBASKET_URL(prop.getProperty("BASKET_URL"));
             this.setBrowser(prop.getProperty("browser"));
+            this.setPrefixOneProductInBasket(prop.getProperty("prefixOneProductInBasket"));
+            this.setPrefixProductsInBasket(prop.getProperty("prefixProductsInBasket"));
+            this.setSuffixOneProductInBasket(prop.getProperty("suffixOneProductInBasket"));
+            this.setSuffixProductsInBasket(prop.getProperty("suffixProductsInBasket"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public String getPrefixOneProductInBasket() {
+        return prefixOneProductInBasket;
+    }
+
+    public void setPrefixOneProductInBasket(String prefixOneProductInBasket) {
+        this.prefixOneProductInBasket = prefixOneProductInBasket;
+    }
+
+    public String getSuffixOneProductInBasket() {
+        return suffixOneProductInBasket;
+    }
+
+    public void setSuffixOneProductInBasket(String suffixOneProductInBasket) {
+        this.suffixOneProductInBasket = suffixOneProductInBasket;
+    }
+
+    public String getPrefixProductsInBasket() {
+        return prefixProductsInBasket;
+    }
+
+    public void setPrefixProductsInBasket(String prefixProductsInBasket) {
+        this.prefixProductsInBasket = prefixProductsInBasket;
+    }
+
+    public String getSuffixProductsInBasket() {
+        return suffixProductsInBasket;
+    }
+
+    public void setSuffixProductsInBasket(String suffixProductsInBasket) {
+        this.suffixProductsInBasket = suffixProductsInBasket;
+    }
+
+
 
     public Browser getBrowser() {
         return browser;

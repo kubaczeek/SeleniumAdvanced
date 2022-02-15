@@ -59,9 +59,11 @@ public class BasketAndCheckoutTest extends BaseTest {
     private String countTextProductInBasket(Basket basket) {
         int count = countItemsInBasket(basket);
         if (count == 1) {
-            return "There is " + count + " item in your cart.";
+            return config.getPrefixOneProductInBasket() + " "
+                    + count + " " + config.getSuffixOneProductInBasket();
         } else {
-            return "There are " + count + " items in your cart.";
+            return config.getPrefixProductsInBasket() + " "
+                    + count + " " + config.getSuffixProductsInBasket();
         }
     }
 
