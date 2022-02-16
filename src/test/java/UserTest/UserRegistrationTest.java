@@ -5,10 +5,10 @@ import common.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pages.CreateAccountPage;
-import pages.LogInPage;
-import pages.MyAccountPage;
-import pages.PersonalInformationPage;
+import pages.user.CreateAccountPage;
+import pages.user.LogInPage;
+import pages.user.MyAccountPage;
+import pages.user.PersonalInformationPage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,15 +19,15 @@ public class UserRegistrationTest extends BaseTest {
     public void InitPage() {
         driver.get(config.getCREATE_ACCOUNT_URL());
         Assert.assertEquals(driver.getCurrentUrl(), config.getCREATE_ACCOUNT_URL());
-        createAccountPage = new CreateAccountPage(driver);
     }
 
     @Test
     public void RegisterUserAndCheckPersonalInfo() {
+        CreateAccountPage createAccountPage = new CreateAccountPage(driver);
         User user = userFactory.getRandomUser();
         createAccountPage.registerUser(user);
         driver.get(config.getPERSONAL_INFORMATION_URL());
-        personalInformationPage = new PersonalInformationPage(driver);
+        PersonalInformationPage personalInformationPage = new PersonalInformationPage(driver);
         Assert.assertEquals(personalInformationPage.getFirstName(), user.getFirstName());
         Assert.assertEquals(personalInformationPage.getLastName(), user.getLastName());
         Assert.assertEquals(personalInformationPage.getEmail(), user.getEmail());
@@ -35,12 +35,12 @@ public class UserRegistrationTest extends BaseTest {
         Assert.assertEquals(LocalDate.parse(personalInformationPage.getDateOfBirthday(), formatter), LocalDate.parse(user.getDateOfBirth(), formatter));
 
         personalInformationPage.logout();
-        loginPage = new LogInPage(driver);
-        Assert.assertTrue(loginPage.pageLoaded());
+        LogInPage logInPage = new LogInPage(driver);
+        Assert.assertTrue(logInPage.pageLoaded());
         Assert.assertEquals(driver.getCurrentUrl(), config.getSIGN_OUT_URL());
 
-        loginPage.loginUser(user);
-        myAccountPage = new MyAccountPage(driver);
+        logInPage.loginUser(user);
+        MyAccountPage myAccountPage = new MyAccountPage(driver);
         Assert.assertTrue(myAccountPage.pageLoaded());
         Assert.assertEquals(driver.getCurrentUrl(), config.getPERSONAL_INFORMATION_URL());
     }

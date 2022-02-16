@@ -1,4 +1,4 @@
-package pages;
+package pages.user;
 
 import common.User;
 import org.openqa.selenium.WebDriver;

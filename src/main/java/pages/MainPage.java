@@ -54,5 +54,9 @@ public class MainPage extends PageHelpers {
         categories.add(artCategory);
         return categories;
     }
+
+    public WebElement getRandomCategory() {
+        return getCategories().get(randomIntInBound(getCategories().size()-1));
+    }
 }
 

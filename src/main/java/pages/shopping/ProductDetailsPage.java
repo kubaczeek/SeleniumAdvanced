@@ -1,4 +1,4 @@
-package pages;
+package pages.shopping;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,12 +6,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.PageHelpers;
 import shop.Product;
 
 import java.time.Duration;
 import java.util.List;
 
-public class ProductDetailsPage extends PageHelpers{
+public class ProductDetailsPage extends PageHelpers {
 
     public ProductDetailsPage(WebDriver driver){
         PageFactory.initElements(driver, this);
@@ -35,6 +36,9 @@ public class ProductDetailsPage extends PageHelpers{
     @FindBy(css = "#quantity_wanted")
     WebElement quantity;
 
+    @FindBy(css = ".cart-content-btn .btn-primary")
+    WebElement proceedToCheckoutBtn;
+
     @FindBy(css = "#group_1 *")
     List<WebElement> sizes;
 
@@ -47,16 +51,19 @@ public class ProductDetailsPage extends PageHelpers{
     }
 
     public Product getProductToObject(){
-        Product product = new Product.ProductBuilder()
+        return new Product.ProductBuilder()
                 .name(name.getText())
                 .price(Float.parseFloat(price.getAttribute("content")))
                 .quantity(Integer.parseInt(quantity.getAttribute("value")))
                 .build();
-        return product;
     }
 
     public void clickAddToCartButton() {
         addToCartBtn.click();
+    }
+
+    public void clickProceedToCheckoutBtn() {
+        proceedToCheckoutBtn.click();
     }
 
     public void clickContinueShoppingButton() {

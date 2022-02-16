@@ -1,4 +1,4 @@
-package pages;
+package pages.shopping;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,8 +12,14 @@ public class BasketPage {
     @FindBy(css = "span.price")
     List<WebElement> prices;
 
+    @FindBy(css = ".cart-total .value")
+    WebElement totalPrice;
+
     @FindBy(css = "a.label")
     List<WebElement> names;
+
+    @FindBy(css = ".text-sm-center .btn")
+    WebElement proceedToCheckoutButton;
 
     @FindBy(css = ".js-cart-line-product-quantity")
     List<WebElement> quantities;
@@ -22,6 +28,9 @@ public class BasketPage {
         PageFactory.initElements(driver, this);
     }
 
+    public void clickProceedToCheckoutButton(){
+        proceedToCheckoutButton.click();
+    }
 
     public Product getProductToObjectByIndexFromList(int i) {
         return new Product.ProductBuilder()
@@ -29,5 +38,9 @@ public class BasketPage {
                 .price(Float.parseFloat(prices.get(i).getText().substring(1)))
                 .quantity(Integer.parseInt(quantities.get(i).getAttribute("value")))
                 .build();
+    }
+
+    public float getTotalPriceFloat(){
+        return Float.parseFloat(totalPrice.getText().substring(1));
     }
 }

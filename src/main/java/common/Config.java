@@ -16,11 +16,14 @@ public class Config {
     private String PERSONAL_INFORMATION_URL;
     private String SIGN_OUT_URL;
     private String BASKET_URL;
+    private String ORDER_HISTORY_URL;
     private Browser browser;
     private String prefixOneProductInBasket;
     private String suffixOneProductInBasket;
     private String prefixProductsInBasket;
     private String suffixProductsInBasket;
+    private String paymentMethodByCheck;
+    private String paymentMethodByBank;
 
     public void loadConfig() throws FileNotFoundException {
         InputStream input = new FileInputStream("src/main/resources/config.properties");
@@ -35,14 +38,25 @@ public class Config {
             this.setPERSONAL_INFORMATION_URL(prop.getProperty("PERSONAL_INFORMATION_URL"));
             this.setSIGN_OUT_URL(prop.getProperty("SIGN_OUT_URL"));
             this.setBASKET_URL(prop.getProperty("BASKET_URL"));
+            this.setORDER_HISTORY_URL(prop.getProperty("ORDER_HISTORY_URL"));
             this.setBrowser(prop.getProperty("browser"));
             this.setPrefixOneProductInBasket(prop.getProperty("prefixOneProductInBasket"));
             this.setPrefixProductsInBasket(prop.getProperty("prefixProductsInBasket"));
             this.setSuffixOneProductInBasket(prop.getProperty("suffixOneProductInBasket"));
             this.setSuffixProductsInBasket(prop.getProperty("suffixProductsInBasket"));
+            this.setPaymentMethodByBank(prop.getProperty("paymentMethodByBank"));
+            this.setPaymentMethodByCheck(prop.getProperty("paymentMethodByCheck"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getORDER_HISTORY_URL() {
+        return ORDER_HISTORY_URL;
+    }
+
+    public void setORDER_HISTORY_URL(String ORDER_HISTORY_URL) {
+        this.ORDER_HISTORY_URL = ORDER_HISTORY_URL;
     }
 
     public String getPrefixOneProductInBasket() {
@@ -77,7 +91,21 @@ public class Config {
         this.suffixProductsInBasket = suffixProductsInBasket;
     }
 
+    public String getPaymentMethodByCheck() {
+        return paymentMethodByCheck;
+    }
 
+    public void setPaymentMethodByCheck(String paymentMethodByCheck) {
+        this.paymentMethodByCheck = paymentMethodByCheck;
+    }
+
+    public String getPaymentMethodByBank() {
+        return paymentMethodByBank;
+    }
+
+    public void setPaymentMethodByBank(String paymentMethodByBank) {
+        this.paymentMethodByBank = paymentMethodByBank;
+    }
 
     public Browser getBrowser() {
         return browser;

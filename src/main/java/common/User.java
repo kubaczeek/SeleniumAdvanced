@@ -8,6 +8,42 @@ public final class User {
     private String email;
     private String password;
     private String dateOfBirth;
+    private String address;
+    private String city;
+    private String zipCode;
+    private String country;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public String getSocialTitle() {
         return socialTitle;
@@ -74,6 +110,10 @@ public final class User {
         private String email;
         private String password;
         private String dateOfBirth;
+        private String address;
+        private String city;
+        private String zipCode;
+        private String country;
 
         public UserBuilder(User user) {
             this.socialTitle = user.socialTitle;
@@ -82,10 +122,34 @@ public final class User {
             this.email = user.email;
             this.password = user.password;
             this.dateOfBirth = user.dateOfBirth;
+            this.address = user.address;
+            this.city = user.city;
+            this.zipCode = user.zipCode;
+            this.country = user.country;
         }
 
         public UserBuilder() {
 
+        }
+
+        public UserBuilder country(String country) {
+            this.country = country;
+            return this;
+        }
+
+        public UserBuilder zipCode(String zipCode) {
+            this.zipCode = zipCode;
+            return this;
+        }
+
+        public UserBuilder address(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public UserBuilder city(String city) {
+            this.city = city;
+            return this;
         }
 
         public UserBuilder socialTitle(String socialTitle) {
@@ -121,13 +185,16 @@ public final class User {
 
         public User build() {
             User user = new User();
-            user.socialTitle = this.socialTitle;
             user.firstName = this.firstName;
             user.email = this.email;
             user.lastName = this.lastName;
             user.password = this.password;
             user.dateOfBirth = this.dateOfBirth;
             user.socialTitle = this.socialTitle;
+            user.address = this.address;
+            user.city = this.city;
+            user.zipCode = this.zipCode;
+            user.country = this.country;
             return user;
         }
     }

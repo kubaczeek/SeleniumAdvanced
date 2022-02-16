@@ -11,7 +11,7 @@ public class UserFactory {
     public User getRandomUser() {
         Random rand = new Random();
 
-        User user = new User.UserBuilder()
+        return new User.UserBuilder()
                 .firstName(String.valueOf(faker.name().firstName()))
                 .lastName(String.valueOf(faker.name().lastName()))
                 .email(String.valueOf(faker.internet().emailAddress()))
@@ -20,8 +20,13 @@ public class UserFactory {
                 .dateOfBirth(faker.number().numberBetween(10, 12) + "/"
                         + faker.number().numberBetween(10, 28) + "/"
                         + faker.number().numberBetween(1900, 2022))
+                .address(String.valueOf(faker.address().streetAddress()))
+                .city(String.valueOf(faker.address().city()))
+                .zipCode(faker.number().numberBetween(10, 99) + "-"
+                        + faker.number().numberBetween(100, 999))
+                .country("Poland")
                 .build();
-        return user;
+
     }
 
     public User getAlreadyRegisteredUser() {
@@ -32,6 +37,10 @@ public class UserFactory {
                 .password("Q12345")
                 .socialTitle("Mr")
                 .dateOfBirth("10/28/2001")
+                .address("TATARY 31A")
+                .city("Ostroleka")
+                .zipCode("07-411")
+                .country("Poland")
                 .build();
     }
 }

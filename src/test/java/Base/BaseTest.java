@@ -7,7 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import pages.*;
+import shop.Basket;
+import shop.Product;
 
 import java.io.FileNotFoundException;
 import java.time.Duration;
@@ -18,15 +19,6 @@ public class BaseTest {
     protected Config config = new Config();
     protected WebDriverWait wait;
 
-    public MainPage mainPage; // czy dzięki temu kod nie jest bardziej przejrzysty?. Jezeli tego nie zrobie pozniej musze tworzyc nowy main page kilka razy MainPage mainPage = new MainPage(driver);
-    // jezeli zostawie tak to tylko mainPage = new MainPage(driver)
-    protected LogInPage loginPage;
-    protected MyAccountPage myAccountPage;
-    protected CreateAccountPage createAccountPage;
-    protected PersonalInformationPage personalInformationPage;
-    protected BasketPage basketPage;
-    protected CategoryPage categoryPage;
-
     @BeforeClass
     public void setup() throws FileNotFoundException {
         DriverFactory driverFactory = new DriverFactory();
@@ -34,7 +26,6 @@ public class BaseTest {
         driver = driverFactory.getDriver(config.getBrowser());
         driver.get(config.getBASE_URL());
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        mainPage = new MainPage(driver);
         driver.manage().window().maximize();
     }
 
@@ -55,7 +46,36 @@ public class BaseTest {
         driver.switchTo().alert().sendKeys(textToAlert);
     }
 
-    public void goToPreviousPage(){
+    public void goToPreviousPage() {
         driver.navigate().back();
+    }
+
+    protected String countTextProductInBasket(Basket basket) {
+        int count = countItemsInBasket(basket);
+        if (count == 1) {
+            return config.getPrefixOneProductInBasket() + " "
+                    + count + " " + config.getSuffixOneProductInBasket();
+        } else {
+            return config.getPrefixProductsInBasket() + " "
+                    + count + " " + config.getSuffixProductsInBasket();
+        }
+    }
+
+    private int countItemsInBasket(Basket basket) {
+        int count = 0;
+        for (Product productFromBasket : basket.getProductsInBasket()) {
+            count += productFromBasket.getQuantity();
+        }
+        return count;
+    }
+
+    protected void addProductToBasket(Product product, Basket basket) {
+        for (Product productFromBasket : basket.getProductsInBasket()) {
+            if (productFromBasket.getName().equals(product.getName()) && productFromBasket.getPrice() == product.getPrice()) {
+                productFromBasket.setQuantity(productFromBasket.getQuantity() + product.getQuantity());
+                return;
+            }
+        }
+        basket.addProduct(product);
     }
 }

@@ -1,4 +1,4 @@
-package pages;
+package pages.shopping;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
+import static pages.PageHelpers.randomIntInBound;
 
 public class CategoryPage {
 
@@ -43,5 +45,13 @@ public class CategoryPage {
 
     public List<WebElement> getSubcategories() {
         return subcategories;
+    }
+
+    public WebElement getRandomSubcategory() {
+        return subcategories.get(randomIntInBound(subcategories.size()));
+    }
+
+    public WebElement getRandomProduct() {
+        return articlesInCategory.get(randomIntInBound(articlesInCategory.size()));
     }
 }

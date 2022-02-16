@@ -4,9 +4,9 @@ import Base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pages.BasketPage;
+import pages.shopping.BasketPage;
 import pages.MainPage;
-import pages.ProductDetailsPage;
+import pages.shopping.ProductDetailsPage;
 import shop.Basket;
 import shop.Product;
 
@@ -16,12 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BasketAndCheckoutTest extends BaseTest {
 
-    @BeforeClass
-    public void OpenMainPage() {
-        driver.get(config.getBASE_URL());
-        mainPage = new MainPage(driver);
-    }
-
     @Test
     public void BasketAndCheckoutTests() {
         Product product;
@@ -29,7 +23,7 @@ public class BasketAndCheckoutTest extends BaseTest {
         int i = 0;
         while (i < 5) {
             driver.get(config.getBASE_URL());
-            mainPage = new MainPage(driver);
+            MainPage mainPage = new MainPage(driver);
             mainPage.openRandomProduct();
             ProductDetailsPage productDetailsPage = new ProductDetailsPage(driver);
             productDetailsPage.randomFillProduct();
@@ -44,7 +38,7 @@ public class BasketAndCheckoutTest extends BaseTest {
 
         driver.get(config.getBASKET_URL());
 
-        basketPage = new BasketPage(driver);
+        BasketPage basketPage = new BasketPage(driver);
         ArrayList<Product> productsInBasketOnPage = new ArrayList<>();
         for (int j = 0; j < basket.getProductsInBasket().size(); j++) {
             productsInBasketOnPage.add(basketPage.getProductToObjectByIndexFromList(j));
@@ -54,34 +48,5 @@ public class BasketAndCheckoutTest extends BaseTest {
             assertThat(productsInBasketOnPage.get(index)).usingRecursiveComparison()
                     .isEqualTo(basket.getProductByIndex(index));
         }
-    }
-
-    private String countTextProductInBasket(Basket basket) {
-        int count = countItemsInBasket(basket);
-        if (count == 1) {
-            return config.getPrefixOneProductInBasket() + " "
-                    + count + " " + config.getSuffixOneProductInBasket();
-        } else {
-            return config.getPrefixProductsInBasket() + " "
-                    + count + " " + config.getSuffixProductsInBasket();
-        }
-    }
-
-    private void addProductToBasket(Product product, Basket basket) {
-        for (Product productFromBasket : basket.getProductsInBasket()) {
-            if (productFromBasket.getName().equals(product.getName()) && productFromBasket.getPrice() == product.getPrice()) {
-                productFromBasket.setQuantity(productFromBasket.getQuantity() + product.getQuantity());
-                return;
-            }
-        }
-        basket.addProduct(product);
-    }
-
-    private int countItemsInBasket(Basket basket) {
-        int count = 0;
-        for (Product productFromBasket : basket.getProductsInBasket()) {
-            count += productFromBasket.getQuantity();
-        }
-        return count;
     }
 }
