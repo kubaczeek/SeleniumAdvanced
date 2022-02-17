@@ -44,6 +44,7 @@ public class ProductAndCategoriesTest extends BaseTest {
                 Assert.assertEquals(categoryPage.totalProductsText(), categoryPage.totalProductsOnPageText());
                 goToPreviousPage();
             }
+
             goToPreviousPage();
         }
     }
