@@ -4,17 +4,12 @@ import common.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import pages.base.BasePage;
 
 import java.util.List;
 import java.util.Random;
 
 public class OrderPage extends BasePage {
-
-    public OrderPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-    }
 
     @FindBy(xpath = "//input[@name='address1']")
     WebElement address;
@@ -64,6 +59,10 @@ public class OrderPage extends BasePage {
     @FindBy(css = "#payment-option-2")
     WebElement paymentOption2Button;
 
+    public OrderPage(WebDriver driver) {
+        super(driver);
+    }
+
     public OrderPage fillAddressForm(User user) {
         address.sendKeys(user.getAddress());
         city.sendKeys(user.getCity());
@@ -78,7 +77,7 @@ public class OrderPage extends BasePage {
     }
 
     public OrderPage acceptTerms() {
-        agreeTermsButton.click();
+        click(agreeTermsButton);
         return this;
     }
 
@@ -87,7 +86,7 @@ public class OrderPage extends BasePage {
     }
 
     public void clickContinueShipBtn() {
-        continueShipButton.click();
+        click(continueShipButton);
     }
 
     public String clickRandomPaymentAndReturnText() {
@@ -101,6 +100,6 @@ public class OrderPage extends BasePage {
     }
 
     public void placeOrder() {
-        placeOrderButton.click();
+        click(placeOrderButton);
     }
 }

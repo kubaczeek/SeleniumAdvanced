@@ -1,13 +1,11 @@
-package UserTest;
+package user;
 
-import Base.BaseTest;
+import base.Pages;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.user.LogInPage;
-import pages.user.MyAccountPage;
 
-public class LogInTest extends BaseTest {
+public class LogInTest extends Pages {
 
     @BeforeMethod
     public void InitPage() {
@@ -16,17 +14,14 @@ public class LogInTest extends BaseTest {
 
     @Test
     public void LogInPageLoaded() {
-        LogInPage loginPage = new LogInPage(driver);
-        Assert.assertTrue(loginPage.pageLoaded());
+        Assert.assertTrue(logInPage.pageLoaded());
         String URL = driver.getCurrentUrl();
         Assert.assertEquals(URL, config.getLOG_IN_URL());
     }
 
     @Test
     public void LoginUserAlreadyRegistered() {
-        LogInPage loginPage = new LogInPage(driver);
-        loginPage.loginUser(userFactory.getAlreadyRegisteredUser());
-        MyAccountPage myAccountPage = new MyAccountPage(driver);
+        logInPage.loginUser(userFactory.getAlreadyRegisteredUser());
         Assert.assertTrue(myAccountPage.pageLoaded());
         Assert.assertEquals(driver.getCurrentUrl(), config.getMY_ACCOUNT_URL());
     }
@@ -34,9 +29,7 @@ public class LogInTest extends BaseTest {
     @Test
     void SignOutUserFromMyAccountPage() {
         driver.get(config.getMY_ACCOUNT_URL());
-        MyAccountPage myAccountPage = new MyAccountPage(driver);
         myAccountPage.signOutButtonClick();
-        LogInPage logInPage = new LogInPage(driver);
         Assert.assertTrue(logInPage.pageLoaded());
         Assert.assertEquals(driver.getCurrentUrl(), config.getLOG_IN_URL());
     }

@@ -3,15 +3,15 @@ package pages.order;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pages.base.BasePage;
 
-public class OrderHistoryPage {
+public class OrderHistoryPage extends BasePage {
 
     @FindBy(xpath = "//*[contains(text(), 'Details')]")
     WebElement detailsButton;
 
     public OrderHistoryPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void clickDetailsButton() {

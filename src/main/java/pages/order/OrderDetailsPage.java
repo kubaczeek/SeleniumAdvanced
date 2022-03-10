@@ -1,13 +1,14 @@
 package pages.order;
 
 import common.Config;
+import models.Product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import shop.Product;
+import pages.base.BasePage;
 
-public class OrderDetailsPage {
+public class OrderDetailsPage extends BasePage {
+
     @FindBy(css = "td.text-xs-right:nth-child(3)")
     WebElement price;
 
@@ -24,15 +25,15 @@ public class OrderDetailsPage {
     WebElement paymentMethod;
 
     public OrderDetailsPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
-    public String getPaymentMethodText(){
+    public String getPaymentMethodText() {
         return paymentMethod.getText();
     }
 
-    public String getPaymentMethodTextFromConfig(String paymentType, Config config){
-        if(paymentType.equals("Pay by Check"))
+    public String getPaymentMethodTextFromConfig(String paymentType, Config config) {
+        if (paymentType.equals("Pay by Check"))
             return config.getPaymentMethodByCheck();
         return config.getPaymentMethodByBank();
     }

@@ -93,15 +93,6 @@ public final class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-//    private User(UserBuilder builder) {
-//        this.socialTitle = builder.socialTitle;
-//        this.firstName = builder.firstName;
-//        this.lastName = builder.lastName;
-//        this.email = builder.email;
-//        this.password = builder.password;
-//        this.dateOfBirth = builder.dateOfBirth;
-//    }
-
     public static class UserBuilder {
 
         private String socialTitle;

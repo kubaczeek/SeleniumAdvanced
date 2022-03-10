@@ -4,15 +4,11 @@ import common.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pages.base.BasePage;
 
 import java.util.List;
 
-public class CreateAccountPage {
-
-    public CreateAccountPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
-    }
+public class CreateAccountPage extends BasePage {
 
     @FindBy(css = ".form-control[name~=\"firstname\"]")
     WebElement firstNameInput;
@@ -41,18 +37,21 @@ public class CreateAccountPage {
     @FindBy(css = ".form-control-submit")
     WebElement saveButton;
 
+    public CreateAccountPage(WebDriver driver) {
+        super(driver);
+    }
 
     public void registerUser(User user) {
-        if(user.getSocialTitle().equals("Mr"))
+        if (user.getSocialTitle().equals("Mr"))
             socialTitleRadioButtons.get(0).click();
-        if(user.getSocialTitle().equals("Mrs"))
+        if (user.getSocialTitle().equals("Mrs"))
             socialTitleRadioButtons.get(1).click();
         firstNameInput.sendKeys(user.getFirstName());
         lastNameInput.sendKeys(user.getLastName());
         emailInput.sendKeys(user.getEmail());
         passwordInput.sendKeys(user.getPassword());
         birthdayInput.sendKeys(user.getDateOfBirth());
-        for(WebElement webElement : allCheckboxesToRegister){
+        for (WebElement webElement : allCheckboxesToRegister) {
             webElement.click();
         }
         saveButton.click();

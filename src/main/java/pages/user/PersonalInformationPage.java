@@ -4,15 +4,11 @@ import common.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pages.base.BasePage;
 
 import java.util.List;
 
-public class PersonalInformationPage {
-
-    public PersonalInformationPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
-    }
+public class PersonalInformationPage extends BasePage {
 
     @FindBy(css = ".page-header")
     WebElement elementPersonalInformationPage;
@@ -38,15 +34,19 @@ public class PersonalInformationPage {
     @FindBy(css = ".custom-radio")
     List<WebElement> socialTitleRadioButtons;
 
+    public PersonalInformationPage(WebDriver driver) {
+        super(driver);
+    }
+
     public boolean pageLoaded() {
         return elementPersonalInformationPage.isDisplayed();
     }
 
-    public boolean firstNameValid(User user){
+    public boolean firstNameValid(User user) {
         return firstNameInput.getText().equals(user.getFirstName());
     }
 
-    public boolean lastNameValid(User user){
+    public boolean lastNameValid(User user) {
         return lastNameInput.getText().equals(user.getLastName());
     }
 
@@ -66,7 +66,7 @@ public class PersonalInformationPage {
         return birthdayInput.getAttribute("value");
     }
 
-    public void logout(){
+    public void logout() {
         logoutButton.click();
     }
 }

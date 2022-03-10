@@ -11,37 +11,36 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 public class DriverFactory {
 
     public WebDriver getDriver(Browser browser) {
-        WebDriver driver = null;
         switch (browser) {
             case CHROME:
-                driver = getChromeDriver();
-                break;
+                return getChromeDriver();
             case FIREFOX:
-                driver = getFirefoxDriver();
-                break;
+                return getFirefoxDriver();
             case EDGE:
-                driver = getEdgeDriver();
-                break;
+                return getEdgeDriver();
             case IE:
-                driver = getIEDriver();
-                break;
+                return getIEDriver();
+            default:
+                throw new IllegalStateException("Unexpected value: " + browser);
         }
-        return driver;
     }
 
-    private WebDriver getChromeDriver(){
+    private WebDriver getChromeDriver() {
         WebDriverManager.chromedriver().setup();
         return new ChromeDriver();
     }
-    private WebDriver getFirefoxDriver(){
+
+    private WebDriver getFirefoxDriver() {
         WebDriverManager.firefoxdriver().setup();
         return new FirefoxDriver();
     }
-    private WebDriver getEdgeDriver(){
+
+    private WebDriver getEdgeDriver() {
         WebDriverManager.edgedriver().setup();
         return new EdgeDriver();
     }
-    private WebDriver getIEDriver(){
+
+    private WebDriver getIEDriver() {
         WebDriverManager.iedriver().setup();
         return new InternetExplorerDriver();
     }

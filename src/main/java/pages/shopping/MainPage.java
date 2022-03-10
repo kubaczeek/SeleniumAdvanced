@@ -1,18 +1,14 @@
-package pages;
+package pages.shopping;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pages.base.BasePage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainPage extends PageHelpers {
-
-    public MainPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-    }
+public class MainPage extends BasePage {
 
     @FindBy(css = "a>span.hidden-sm-down")
     WebElement signInButton;
@@ -35,6 +31,11 @@ public class MainPage extends PageHelpers {
     @FindBy(css = "#category-9")
     WebElement artCategory;
 
+    public MainPage(WebDriver driver) {
+        super(driver);
+    }
+
+
     public boolean pageLoaded() {
         return elementMainPage.isDisplayed();
     }
@@ -44,7 +45,7 @@ public class MainPage extends PageHelpers {
     }
 
     public void openRandomProduct() {
-        popularProducts.get(randomIntInBound(popularProducts.size())).click();
+        click(popularProducts.get(randomIntInBound(popularProducts.size())));
     }
 
     public ArrayList<WebElement> getCategories() {
@@ -55,8 +56,11 @@ public class MainPage extends PageHelpers {
         return categories;
     }
 
-    public WebElement getRandomCategory() {
-        return getCategories().get(randomIntInBound(getCategories().size()-1));
+    public String openRandomCategory() {
+        WebElement randomCategory = getCategories().get(randomIntInBound(getCategories().size() - 1));
+        String name = randomCategory.getText();
+        click(randomCategory);
+        return name;
     }
 }
 

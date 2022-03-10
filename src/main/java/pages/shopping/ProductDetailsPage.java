@@ -1,22 +1,15 @@
 package pages.shopping;
 
+import models.Product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.PageHelpers;
-import shop.Product;
+import pages.base.BasePage;
 
-import java.time.Duration;
 import java.util.List;
 
-public class ProductDetailsPage extends PageHelpers {
-
-    public ProductDetailsPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
-    }
+public class ProductDetailsPage extends BasePage {
 
     @FindBy(css = ".add-to-cart")
     WebElement addToCartBtn;
@@ -45,12 +38,16 @@ public class ProductDetailsPage extends PageHelpers {
     @FindBy(css = ".input-color")
     List<WebElement> colors;
 
-    public void randomFillProduct(){
-        quantity.clear();
-        quantity.sendKeys(String.valueOf(randomIntInBound(5)+1));
+    public ProductDetailsPage(WebDriver driver) {
+        super(driver);
     }
 
-    public Product getProductToObject(){
+    public void randomFillProduct() {
+        quantity.clear();
+        quantity.sendKeys(String.valueOf(randomIntInBound(5) + 1));
+    }
+
+    public Product getProductToObject() {
         return new Product.ProductBuilder()
                 .name(name.getText())
                 .price(Float.parseFloat(price.getAttribute("content")))
@@ -58,8 +55,10 @@ public class ProductDetailsPage extends PageHelpers {
                 .build();
     }
 
-    public void clickAddToCartButton() {
+    public ProductDetailsPage clickAddToCartButton() {
         addToCartBtn.click();
+        waitUntilPopUpLoaded();
+        return this;
     }
 
     public void clickProceedToCheckoutBtn() {
@@ -70,11 +69,11 @@ public class ProductDetailsPage extends PageHelpers {
         click(continueShoppingBtn);
     }
 
-    public String textCountProductInBasket(){
+    public String textCountProductInBasket() {
         return elementCountProductInBasket.getText();
     }
 
-    public void waitUntilPopUpLoaded(WebDriver driver) {
-        new WebDriverWait(driver, Duration.ofSeconds(6)).until(ExpectedConditions.visibilityOf(continueShoppingBtn));
+    public void waitUntilPopUpLoaded() {
+        wait.until(ExpectedConditions.visibilityOf(continueShoppingBtn));
     }
 }

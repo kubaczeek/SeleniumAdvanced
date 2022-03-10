@@ -4,13 +4,9 @@ import common.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pages.base.BasePage;
 
-public class LogInPage {
-
-    public LogInPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
-    }
+public class LogInPage extends BasePage {
 
     @FindBy(xpath = "//*[@class='form-control']")
     WebElement emailInput;
@@ -24,13 +20,17 @@ public class LogInPage {
     @FindBy(css = ".page-header")
     WebElement elementLogInPage;
 
+    public LogInPage(WebDriver driver) {
+        super(driver);
+    }
+
 
     public LogInPage sendKeysToElement(WebElement webElement, String keys) {
         webElement.sendKeys(keys);
         return this;
     }
 
-    public void loginUser(User user){
+    public void loginUser(User user) {
         emailInput.sendKeys(user.getEmail());
         passwordInput.sendKeys(user.getPassword());
         signSubmitInButton.click();

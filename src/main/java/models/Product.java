@@ -1,4 +1,4 @@
-package shop;
+package models;
 
 public class Product {
     private String name;
@@ -27,6 +27,10 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public float getTotalPrice() {
+        return getQuantity() * getPrice();
     }
 
     public static class ProductBuilder {
